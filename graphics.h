@@ -58,6 +58,7 @@ class Graphics : public RenderWindow {
 		void drawGhost(Tetrimino t, int x, int y, PlayingField p); // draw a ghost tetrimino
 		void drawScore(int score); // print the score to the screen
 		void printGameOver(); // print game over to the screen
+		void showHighscores(int *highscores, string *names); // shows the highscores
 };
 
 #endif

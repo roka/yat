@@ -39,7 +39,7 @@ void Graphics::printGameOver()
 	Text text("Game Over!", this->font);
 	text.setCharacterSize(50);
 	text.setColor(Color::White);
-	text.setPosition(this->wellX,this->wellY + 200 );
+	text.setPosition(this->wellX,this->wellY - 100 );
 	text.setStyle(Text::Bold);
 	this->draw(text);
 }
@@ -133,5 +133,31 @@ void Graphics::drawWell(PlayingField p)
 		}
 		if( p.getSquare(i, j) )
 			this->drawBlock(this->bTetrimino[p.getSquare(i,j)-1]->getSolid(), i, j);
+	}
+}
+
+/* Shows the highscores on the screen */
+void Graphics::showHighscores(int *highscores, string *names)
+{
+	stringstream score;
+	for(int i=0; i < MAX_HIGHSCORE; i++)
+	{
+		// Get text
+		Text name(names[i], this->font);
+		score.str(string());
+		score << highscores[i];
+		Text highscore(score.str(), this->font);
+
+		// Set size, pos and color
+		name.setCharacterSize(30);
+		highscore.setCharacterSize(30);
+		name.setColor(Color::White);
+		highscore.setColor(Color::White);
+		name.setPosition( this->wellX, this->wellY + (i*30) );
+		highscore.setPosition( this->wellX+200, this->wellY + (i*30 ));
+
+		// draw
+		this->draw(name);
+		this->draw(highscore);
 	}
 }

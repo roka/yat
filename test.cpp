@@ -108,10 +108,15 @@ int main()
 			}
 			/* Check game over */
 			if(cur_y == 0 && play->checkCollisionDown(*t, cur_x, cur_y)) {
+				hs->writeNewHighscore(score, "a");
+				hs->readHighscore();
+				graphics.clear( Color(0,0,0,255) );
 				graphics.printGameOver();
-				graphics.drawScore(score);
+				//graphics.drawScore(score);
+				graphics.showHighscores( hs->getHighscores(), hs->getNames() );
 				graphics.display();
-				sleep( seconds(2) );
+				sleep( seconds(10) );
+
 				delete play;
 				play = new PlayingField();
 				score = 0;
