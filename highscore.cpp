@@ -19,7 +19,14 @@ void Highscore::readHighscore()
 			this->highscores[i] = atoi(line.c_str());
 			i++;
 		}
+
 		highscoreFile.close();
+	}
+
+	/* Zero the rest of the scores */
+	for(i=i; i < MAX_HIGHSCORES; i++) {
+		this->names[i] = "";
+		this->highscores[i] = 0;
 	}
 }
 

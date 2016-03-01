@@ -1,6 +1,7 @@
 #include "graphics.h"
 #include "tetriminos.h"
 #include "playingField.h"
+#include "highscore.h"
 
 #include <iostream>
 
@@ -11,10 +12,11 @@ int main()
 {
 	Graphics graphics(1024, 769);
 	PlayingField *play = new PlayingField();
+	Highscore *hs = new Highscore();
 	int k=1;
 	int score = 0;
 
-	//Tetrimino t( k, 24 );
+	hs->readHighscore();
 	Tetrimino *t = new Tetrimino(k,24);
 
 	Clock clock;
