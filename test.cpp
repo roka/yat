@@ -85,6 +85,11 @@ int main()
 					k=1;
 				t = new Tetrimino( k, 24 );
 			}
+			/* Check game over */
+			if(cur_y == 0 && play.checkCollisionDown(*t, cur_x, cur_y)) {
+				cout << "Game over!\n";
+			}
+
 			gameClock.restart();
 		}
 		graphics.drawTetrimino(*t, cur_x, cur_y);
