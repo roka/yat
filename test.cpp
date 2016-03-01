@@ -87,7 +87,7 @@ int main()
 			}
 			/* Check game over */
 			if(cur_y == 0 && play.checkCollisionDown(*t, cur_x, cur_y)) {
-				cout << "Game over!\n";
+				graphics.printGameOver();
 			}
 
 			gameClock.restart();
@@ -95,6 +95,7 @@ int main()
 		graphics.drawTetrimino(*t, cur_x, cur_y);
 		graphics.drawGhost(*t, cur_x, cur_y, play);
 		graphics.drawScore(score);
+		graphics.printGameOver();
 
 		graphics.display();
 	}

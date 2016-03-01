@@ -34,6 +34,16 @@ void Graphics::drawScore(int score)
 	this->draw(text);
 }
 
+void Graphics::printGameOver()
+{
+	Text text("Game Over!", this->font);
+	text.setCharacterSize(50);
+	text.setColor(Color::White);
+	text.setPosition(this->wellX,this->wellY + 200 );
+	text.setStyle(Text::Bold);
+	this->draw(text);
+}
+
 void Graphics::drawGrid() // draw the grids inside of the tetris well
 {
 	float tmpx = this->wellX + this->textureSize;

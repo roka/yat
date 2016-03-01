@@ -57,6 +57,7 @@ class Graphics : public RenderWindow {
 		bool drawTetrimino(Tetrimino t, int x, int y); // draw a tetrimino to cord
 		void drawGhost(Tetrimino t, int x, int y, PlayingField p); // draw a ghost tetrimino
 		void drawScore(int score); // print the score to the screen
+		void printGameOver(); // print game over to the screen
 };
 
 #endif
