@@ -115,7 +115,16 @@ int main()
 				//graphics.drawScore(score);
 				graphics.showHighscores( hs->getHighscores(), hs->getNames() );
 				graphics.display();
-				sleep( seconds(10) );
+				// Pause until any key is pressed
+				while(1) {
+					graphics.pollEvent(event);
+					if( event.type == Event::KeyPressed)
+						break;
+					else if( event.type == Event::Closed) {
+						graphics.close();
+						break;
+					}
+				}
 
 				delete play;
 				play = new PlayingField();
