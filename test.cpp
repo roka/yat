@@ -10,7 +10,7 @@ using namespace sf;
 int main() 
 {
 	Graphics graphics(1024, 769);
-	PlayingField play;
+	PlayingField *play = new PlayingField();
 	int k=1;
 	int score = 0;
 
@@ -39,27 +39,27 @@ int main()
 		if(clock.getElapsedTime().asSeconds() > 0.1) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
 				t->rotateLeft();
-				if(play.checkCollisionDown(*t, cur_x, cur_y))
+				if(play->checkCollisionDown(*t, cur_x, cur_y))
 					t->rotateRight();
 			} else if (Keyboard::isKeyPressed(sf::Keyboard::X)) {
 				t->rotateRight();
-				if(play.checkCollisionDown(*t, cur_x, cur_y))
+				if(play->checkCollisionDown(*t, cur_x, cur_y))
 					t->rotateLeft();
 			} else if(Keyboard::isKeyPressed(Keyboard::Left) ||
 					Keyboard::isKeyPressed(Keyboard::H)) {
-				if(!play.checkCollisionDown(*t, cur_x-1, cur_y))
+				if(!play->checkCollisionDown(*t, cur_x-1, cur_y))
 					cur_x--;
 			} else if(Keyboard::isKeyPressed(Keyboard::Right) ||
 					Keyboard::isKeyPressed(Keyboard::L)) {
-				if(!play.checkCollisionDown(*t, cur_x+1, cur_y))
+				if(!play->checkCollisionDown(*t, cur_x+1, cur_y))
 					cur_x++;
 			} else if(Keyboard::isKeyPressed(Keyboard::Down)) {
-				if(!play.checkCollisionDown(*t, cur_x, cur_y+1))
+				if(!play->checkCollisionDown(*t, cur_x, cur_y+1))
 					cur_y++;
 			}
 			/* Hard Drop */
 			else if(Keyboard::isKeyPressed(Keyboard::Up)) {
-				while(!play.checkCollisionDown(*t, cur_x, cur_y+1))
+				while(!play->checkCollisionDown(*t, cur_x, cur_y+1))
 					cur_y++;
 			}
 
@@ -70,13 +70,13 @@ int main()
 		graphics.clear();
 		graphics.drawBorders();
 		graphics.drawGrid();
-		graphics.drawWell(play);
+		graphics.drawWell(*play);
 		if(gameClock.getElapsedTime().asSeconds() > 0.25) {
-			if(!play.checkCollisionDown(*t, cur_x, cur_y+1))
+			if(!play->checkCollisionDown(*t, cur_x, cur_y+1))
 				cur_y++;
 			else { // collision, add the tetrimino to the well
-				play.addToWell(*t, cur_x, cur_y);
-				score += play.clearLines();
+				play->addToWell(*t, cur_x, cur_y);
+				score += play->clearLines();
 				/* reset x and y */
 				cur_x = 5;
 				cur_y = 0;
@@ -86,14 +86,16 @@ int main()
 				t = new Tetrimino( k, 24 );
 			}
 			/* Check game over */
-			if(cur_y == 0 && play.checkCollisionDown(*t, cur_x, cur_y)) {
+			if(cur_y == 0 && play->checkCollisionDown(*t, cur_x, cur_y)) {
 				graphics.printGameOver();
+				delete play;
+				play = new PlayingField();
 			}
 
 			gameClock.restart();
 		}
 		graphics.drawTetrimino(*t, cur_x, cur_y);
-		graphics.drawGhost(*t, cur_x, cur_y, play);
+		graphics.drawGhost(*t, cur_x, cur_y, *play);
 		graphics.drawScore(score);
 		graphics.printGameOver();
 
