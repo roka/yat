@@ -23,6 +23,7 @@ int main()
 
 	int cur_x = 5;
 	int cur_y = 0;
+	int kick=0; // used for wallkicks
 
 	Clock gameClock;
 	gameClock.restart();
@@ -40,14 +41,23 @@ int main()
 			/* Rotate left */
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
 				t->rotateLeft();
-				if(play->checkCollisionDown(*t, cur_x, cur_y))
-					t->rotateRight();
+				if(play->checkCollisionDown(*t, cur_x, cur_y)) {
+					kick=play->checkWallKick(t, cur_x, cur_y);
+					if(kick)
+						cur_x+=kick;
+					else
+						t->rotateRight();
+				}
 			}
 			/* Rotate Right */
 		       	else if (Keyboard::isKeyPressed(sf::Keyboard::X)) {
 				t->rotateRight();
 				if(play->checkCollisionDown(*t, cur_x, cur_y))
-					t->rotateLeft();
+					kick=play->checkWallKick(t, cur_x, cur_y);
+					if(kick)
+						cur_x+=kick;
+					else
+						t->rotateLeft();
 			}
 			/* Move left */
 		       	else if(Keyboard::isKeyPressed(Keyboard::Left) ||

@@ -80,3 +80,33 @@ int PlayingField::clearLines()
 	}
 	return linesCleared;
 }
+
+/* Checks if a wall kick is possible
+ * return 0 if the wallkick fails
+ * return the x delta if the wallkick is successfull */
+int PlayingField::checkWallKick(Tetrimino *t, int x, int y) const
+{
+	bool kick;
+	int cur_x = x;
+	for(int i=0; i < 4 && (cur_x+i) < NUM_COLS; i++) {
+		if(!this->checkCollisionDown(*t, cur_x+i, y)) {
+			cur_x += i;
+			i=3;
+			kick=true;
+		}
+	}
+	if(kick == false) {
+		for(int i=0; i > -4 && (cur_x+i) < NUM_COLS && (cur_x+i) > 0; i--) {
+			if(!this->checkCollisionDown(*t, cur_x+i, y)) {
+				cur_x += i;
+				i=-4;
+				kick=true;
+			}
+		}
+	}
+
+	if(kick)
+		return (cur_x-x);
+	return 0;
+}
+

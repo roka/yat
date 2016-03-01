@@ -46,6 +46,8 @@ class PlayingField {
 		int getSquare(int x, int y) const {
 			return (this->well[x][y]);
 		}
+		int checkWallKick(Tetrimino *t, int x, int y) const; // checks if a wall kick is possible
+
 };
 
 #endif
