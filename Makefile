@@ -3,8 +3,8 @@ CFLAGS=-lsfml-graphics -lsfml-window -lsfml-system -std=c++0x -Wall
 
 all: tetris
 
-tetris: test.o graphics.o block.o tetriminos.o playingField.o
-	$(CC) $(CFLAGS) main.o graphics.o block.o tetriminos.o playingField.o -o tetris
+tetris: test.o graphics.o block.o tetriminos.o playingField.o highscore.o
+	$(CC) $(CFLAGS) main.o graphics.o block.o tetriminos.o playingField.o highscore.o -o tetris
 
 test.o: test.cpp
 	$(CC) -c $(CFLAGS) test.cpp -o main.o
@@ -20,6 +20,9 @@ tetriminos.o: tetriminos.cpp
 
 playingField.o: playingField.cpp
 	$(CC) -c $(CFLAGS) playingField.cpp
+
+highscore.o: highscore.cpp
+	$(CC) -c $(CFLAGS) highscore.cpp
 
 clean:
 	rm *.o tetris
