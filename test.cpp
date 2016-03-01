@@ -93,6 +93,7 @@ int main()
 				sleep( seconds(2) );
 				delete play;
 				play = new PlayingField();
+				score = 0;
 			}
 
 			gameClock.restart();
