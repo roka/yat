@@ -31,8 +31,12 @@ void Highscore::readHighscore()
 }
 
 /* check if a score should be added to the highscore */
-bool Highscore::newHighscore(int score) const
+bool Highscore::isNewHighscore(int score) const
 {
+	for(int i=0; i < MAX_HIGHSCORES; i++) {
+		if(this->highscores[i] < score)
+			return true;
+	}
 	return false;
 }
 

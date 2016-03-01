@@ -16,7 +16,7 @@ class Highscore{
 	       ~Highscore() {}
 
 	       void readHighscore();
-	       bool newHighscore(int score) const;
+	       bool isNewHighscore(int score) const;
 	       void writeNewHighscore(int score, string name);
 
 };
