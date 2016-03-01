@@ -43,6 +43,38 @@ bool Highscore::isNewHighscore(int score) const
 /* add a new score to the highscore list */
 void Highscore::writeNewHighscore(int score, string name)
 {
+	int index;
+	/* Find the index for the new highscore */
+	for(index=0; index < MAX_HIGHSCORES; index++)
+	{
+		if(score > this->highscores[index])
+			break;
+	}
+
+	/* exit function if this is not a valid highscore */
+	if(index == 10)
+		return;
+	
+	/* Move down all highscores after index */
+	for(int i=(MAX_HIGHSCORES-2); i >= index; i--) {
+		this->names[i+1] = this->names[i];
+		this->highscores[i+1] = this->highscores[i];
+	}
+
+	/* Add the new highscore */
+	this->names[index] = name;
+	this->highscores[index] = score;
+
+	/* Write the highscores to disk */
+	ofstream highscoreFile("highscore.txt");
+	if(highscoreFile.is_open())
+	{
+		for(int i = 0; i < MAX_HIGHSCORES; i++) {
+			highscoreFile << this->names[i] << endl;
+			highscoreFile << this->highscores[i] << endl;
+		}
+		highscoreFile.close();
+	}
 }
 
 
