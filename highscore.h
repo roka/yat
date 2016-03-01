@@ -1,8 +1,7 @@
 #ifndef __HIGHSCORE__H__
 #define __HIGHSCORE__H__
 
-#define MAX_HIGHSCORES 10
-
+#include "defines.h"
 #include <string>
 
 using namespace std;
