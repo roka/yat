@@ -88,6 +88,9 @@ int main()
 			/* Check game over */
 			if(cur_y == 0 && play->checkCollisionDown(*t, cur_x, cur_y)) {
 				graphics.printGameOver();
+				graphics.drawScore(score);
+				graphics.display();
+				sleep( seconds(2) );
 				delete play;
 				play = new PlayingField();
 			}
@@ -97,7 +100,6 @@ int main()
 		graphics.drawTetrimino(*t, cur_x, cur_y);
 		graphics.drawGhost(*t, cur_x, cur_y, *play);
 		graphics.drawScore(score);
-		graphics.printGameOver();
 
 		graphics.display();
 	}
