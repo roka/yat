@@ -37,23 +37,32 @@ int main()
 		}
 
 		if(clock.getElapsedTime().asSeconds() > 0.1) {
+			/* Rotate left */
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
 				t->rotateLeft();
 				if(play->checkCollisionDown(*t, cur_x, cur_y))
 					t->rotateRight();
-			} else if (Keyboard::isKeyPressed(sf::Keyboard::X)) {
+			}
+			/* Rotate Right */
+		       	else if (Keyboard::isKeyPressed(sf::Keyboard::X)) {
 				t->rotateRight();
 				if(play->checkCollisionDown(*t, cur_x, cur_y))
 					t->rotateLeft();
-			} else if(Keyboard::isKeyPressed(Keyboard::Left) ||
+			}
+			/* Move left */
+		       	else if(Keyboard::isKeyPressed(Keyboard::Left) ||
 					Keyboard::isKeyPressed(Keyboard::H)) {
 				if(!play->checkCollisionDown(*t, cur_x-1, cur_y))
 					cur_x--;
-			} else if(Keyboard::isKeyPressed(Keyboard::Right) ||
+			} 
+			/* Move Right */
+		       	else if(Keyboard::isKeyPressed(Keyboard::Right) ||
 					Keyboard::isKeyPressed(Keyboard::L)) {
 				if(!play->checkCollisionDown(*t, cur_x+1, cur_y))
 					cur_x++;
-			} else if(Keyboard::isKeyPressed(Keyboard::Down)) {
+			}
+			/* Move Down */
+		       	else if(Keyboard::isKeyPressed(Keyboard::Down)) {
 				if(!play->checkCollisionDown(*t, cur_x, cur_y+1))
 					cur_y++;
 			}
