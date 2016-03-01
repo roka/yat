@@ -266,9 +266,6 @@ class Tetrimino {
 
 		}
 
-		int getFarLeft() const;
-		int getFarDown() const;
-		int getFarRight() const;
 		Block getBlock() const;
 		void getArray(int *arr) const;
 
