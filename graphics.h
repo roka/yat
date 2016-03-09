@@ -9,6 +9,7 @@
 #include "playingField.h"
 
 using namespace sf;
+using namespace std;
 
 class Graphics : public RenderWindow {
 	private:
@@ -59,6 +60,7 @@ class Graphics : public RenderWindow {
 		void drawScore(int score); // print the score to the screen
 		void printGameOver(); // print game over to the screen
 		void showHighscores(int *highscores, string *names); // shows the highscores
+		string enterName();
 };
 
 #endif

@@ -54,7 +54,6 @@ int main()
 			/* Rotate Right */
 		       	else if (Keyboard::isKeyPressed(sf::Keyboard::X)) {
 				t->rotateRight();
-				cout << "rot right" << endl;
 				if(play->checkCollisionDown(*t, cur_x, cur_y)) {
 					kick=play->checkWallKick(t, cur_x, cur_y);
 					if(kick)
@@ -86,8 +85,6 @@ int main()
 					cur_y++;
 			}
 
-			//printf("%d:%d\n", cur_x, cur_y);
-
 			clock.restart();
 		}
 		graphics.clear();
@@ -110,7 +107,9 @@ int main()
 			}
 			/* Check game over */
 			if(cur_y == 0 && play->checkCollisionDown(*t, cur_x, cur_y)) {
-				hs->writeNewHighscore(score, "a");
+				graphics.clear( Color(0,0,0,255) );
+				string name=graphics.enterName();
+				hs->writeNewHighscore(score, name);
 				hs->readHighscore();
 				graphics.clear( Color(0,0,0,255) );
 				graphics.printGameOver();

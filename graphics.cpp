@@ -161,3 +161,45 @@ void Graphics::showHighscores(int *highscores, string *names)
 		this->draw(highscore);
 	}
 }
+
+/* new highscore enter name */
+string Graphics::enterName()
+{
+	string name;
+	bool running=true;
+	Text enterN("New Highscore\nEnter name:", this->font);	
+	enterN.setCharacterSize(30);
+	enterN.setColor(Color::White);
+	enterN.setPosition(this->wellX, this->wellY);
+
+	sf::Event event;
+	while(running) {
+	while(this->pollEvent(event)) {
+		if(event.type == Event::Closed)
+			this->close();
+		if (event.type == sf::Event::TextEntered){
+			//if(event.KeyPressed == sf::Keyboard::BackSpace && name.size()!=0){
+			if(Keyboard::isKeyPressed(Keyboard::BackSpace) && name.size() != 0) {
+				name.pop_back();
+			}
+			else if(Keyboard::isKeyPressed(Keyboard::Return)) {
+				running=false;
+			}
+			else if (event.text.unicode < 128) {
+			    name.push_back((char)event.text.unicode);
+		}
+		this->clear( Color(0,0,0,255) );
+
+		Text nameT(name, this->font);
+		nameT.setCharacterSize(30);
+		nameT.setColor(Color::White);
+		nameT.setPosition(this->wellX, this->wellY+60);
+		this->draw(nameT);
+		    }
+		}
+		this->draw(enterN);
+		this->display();
+	}
+
+	return name;
+}
