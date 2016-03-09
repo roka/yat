@@ -54,12 +54,14 @@ int main()
 			/* Rotate Right */
 		       	else if (Keyboard::isKeyPressed(sf::Keyboard::X)) {
 				t->rotateRight();
-				if(play->checkCollisionDown(*t, cur_x, cur_y))
+				cout << "rot right" << endl;
+				if(play->checkCollisionDown(*t, cur_x, cur_y)) {
 					kick=play->checkWallKick(t, cur_x, cur_y);
 					if(kick)
 						cur_x+=kick;
 					else
 						t->rotateLeft();
+				}
 			}
 			/* Move left */
 		       	else if(Keyboard::isKeyPressed(Keyboard::Left) ||
