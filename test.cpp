@@ -15,6 +15,7 @@ int main()
 	Highscore *hs = new Highscore();
 	int k=1;
 	int score = 0;
+	int scoreDelta = 0;
 
 	hs->readHighscore();
 	Tetrimino *t = new Tetrimino(k,24);
@@ -39,7 +40,7 @@ int main()
 				graphics.close();
 		}
 
-		if(clock.getElapsedTime().asSeconds() > 0.1) {
+		if(clock.getElapsedTime().asSeconds() > 0.09) {
 			/* Rotate left */
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
 				t->rotateLeft();
@@ -91,12 +92,17 @@ int main()
 		graphics.drawBorders();
 		graphics.drawGrid();
 		graphics.drawWell(*play);
-		if(gameClock.getElapsedTime().asSeconds() > 0.25) {
+
+		if(gameClock.getElapsedTime().asSeconds() > 0.25 - (play->getGravity() / 1000) ) { // Drop tetrimino
 			if(!play->checkCollisionDown(*t, cur_x, cur_y+1))
 				cur_y++;
 			else { // collision, add the tetrimino to the well
 				play->addToWell(*t, cur_x, cur_y);
-				score += play->clearLines();
+				scoreDelta = play->clearLines();
+				if (scoreDelta > 0)
+					play->updateGravity(play->getGravity() + 1);
+				score += scoreDelta;
+				
 				/* reset x and y */
 				cur_x = 5;
 				cur_y = 0;
@@ -108,14 +114,16 @@ int main()
 			/* Check game over */
 			if(cur_y == 0 && play->checkCollisionDown(*t, cur_x, cur_y)) {
 				graphics.clear( Color(0,0,0,255) );
+				graphics.display();
 				string name=graphics.enterName();
 				hs->writeNewHighscore(score, name);
 				hs->readHighscore();
 				graphics.clear( Color(0,0,0,255) );
 				graphics.printGameOver();
-				//graphics.drawScore(score);
+				
 				graphics.showHighscores( hs->getHighscores(), hs->getNames() );
 				graphics.display();
+
 				// Pause until any key is pressed
 				while(1) {
 					graphics.pollEvent(event);

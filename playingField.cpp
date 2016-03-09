@@ -110,3 +110,12 @@ int PlayingField::checkWallKick(Tetrimino *t, int x, int y) const
 	return 0;
 }
 
+unsigned int PlayingField::getGravity() const
+{
+	return this->gravity;
+}
+
+void PlayingField::updateGravity(unsigned int gravity)
+{
+	this->gravity = gravity;
+}

@@ -24,6 +24,7 @@ void Graphics::drawBorders() // draw the borders of the tetris well
 void Graphics::drawScore(int score)
 {
 	stringstream ss;
+	ss << "Score: ";
 	ss << score;
 
 	Text text(ss.str(), this->font);
@@ -171,32 +172,33 @@ string Graphics::enterName()
 	enterN.setCharacterSize(30);
 	enterN.setColor(Color::White);
 	enterN.setPosition(this->wellX, this->wellY);
-
+	this->clear();
 	sf::Event event;
-	while(running) {
-	while(this->pollEvent(event)) {
-		if(event.type == Event::Closed)
-			this->close();
-		if (event.type == sf::Event::TextEntered){
-			//if(event.KeyPressed == sf::Keyboard::BackSpace && name.size()!=0){
-			if(Keyboard::isKeyPressed(Keyboard::BackSpace) && name.size() != 0) {
-				name.pop_back();
-			}
-			else if(Keyboard::isKeyPressed(Keyboard::Return)) {
-				running=false;
-			}
-			else if (event.text.unicode < 128) {
-			    name.push_back((char)event.text.unicode);
-		}
-		this->clear( Color(0,0,0,255) );
 
-		Text nameT(name, this->font);
-		nameT.setCharacterSize(30);
-		nameT.setColor(Color::White);
-		nameT.setPosition(this->wellX, this->wellY+60);
-		this->draw(nameT);
-		    }
+	Text nameT("", this->font);
+	nameT.setCharacterSize(30);
+	nameT.setColor(Color::White);
+	nameT.setPosition(this->wellX, this->wellY + 60);
+
+	while(running) {
+		while(this->pollEvent(event)) {
+			if(event.type == Event::Closed)
+				this->close();
+			if (event.type == sf::Event::TextEntered){
+				if(Keyboard::isKeyPressed(Keyboard::BackSpace) && name.size() != 0) {
+					name.pop_back();
+					nameT.setString(name);
+				}
+				else if(Keyboard::isKeyPressed(Keyboard::Return)) {
+					running=false;
+				}
+				else if (event.text.unicode < 128) {
+					name.push_back((char)event.text.unicode);
+					nameT.setString(name);
+				}
+			}
 		}
+		this->draw(nameT);
 		this->draw(enterN);
 		this->display();
 	}
